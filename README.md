@@ -2,6 +2,8 @@
 
 A browser-playable science-fiction operations game about commanding the UES Meridian through a connected series of crises. Assign specialists, manage ship resources, make consequential choices, and carry mission intel forward. The project separates a DOM-free simulation engine from the browser interface and optional local campaign API.
 
+**[▶ Play the live demo](https://lordinfamous86.github.io/Starship-Command/)**
+
 ## Portfolio overview
 
 - **Four connected operations:** Silent Relay, Glass Tide, Ghost Signal, and the optional Last Coordinates epilogue.
