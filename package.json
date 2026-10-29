@@ -1,0 +1,11 @@
+{
+  "name": "starship-command",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack starship operations simulator prototype",
+  "scripts": {
+    "start": "node server.js",
+    "build:static": "node scripts/build-static.js",
+    "test": "node tests/run-tests.js"
+  }
+}

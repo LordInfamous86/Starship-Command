@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071015">
+  <title>Starship Command — Campaign Tour</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071015;
+      --panel: #101b22;
+      --line: #29404a;
+      --muted: #9aabb1;
+      --text: #e7f0ee;
+      --teal: #53e2cf;
+      --amber: #ffb657;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: var(--text);
+      background: radial-gradient(ellipse at 50% 0%, #18303a 0%, var(--bg) 62%);
+    }
+    .tour { width: min(1120px, 100%); }
+    .header { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 18px; }
+    .brand, .eyebrow, .counter, .note { font: 11px/1.5 Consolas, "Courier New", monospace; letter-spacing: .13em; text-transform: uppercase; }
+    .brand { color: var(--teal); }
+    .counter, .note { color: var(--muted); }
+    h1 { margin: 10px 0 0; font-size: clamp(27px, 5vw, 48px); line-height: 1; letter-spacing: .01em; text-transform: uppercase; }
+    .frame { overflow: hidden; border: 1px solid var(--line); background: var(--panel); box-shadow: 0 24px 80px #0008; }
+    .visual { position: relative; min-height: 260px; background: #071015; }
+    .visual img { display: block; width: 100%; max-height: 64vh; object-fit: contain; }
+    .caption { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 20px 24px; border-top: 1px solid var(--line); }
+    .eyebrow { color: var(--teal); }
+    h2 { margin: 7px 0 5px; font-size: clamp(20px, 3vw, 28px); text-transform: uppercase; }
+    .description { max-width: 700px; margin: 0; color: #bcc9ca; line-height: 1.55; }
+    .marker { flex: 0 0 auto; color: var(--amber); font: 11px Consolas, monospace; letter-spacing: .12em; }
+    .progress { height: 3px; background: #1a2c34; }
+    .progress span { display: block; width: 25%; height: 100%; background: var(--teal); transition: width .35s ease; }
+    .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .control-group { display: flex; gap: 8px; }
+    button, .back-link { min-height: 42px; padding: 0 15px; border: 1px solid var(--line); color: var(--text); background: #101b22; font: 12px Consolas, monospace; letter-spacing: .06em; text-decoration: none; cursor: pointer; }
+    button:hover, .back-link:hover { border-color: var(--teal); color: var(--teal); }
+    button:focus-visible, .back-link:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+    .note { margin-top: 17px; letter-spacing: .04em; text-transform: none; }
+    @media (max-width: 620px) {
+      body { padding: 16px; }
+      .header, .caption, .controls { align-items: flex-start; flex-direction: column; }
+      .caption { gap: 12px; padding: 16px; }
+      .controls { gap: 10px; }
+      .visual { min-height: 180px; }
+      .visual img { max-height: 48vh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="tour" aria-labelledby="tour-title">
+    <header class="header">
+      <div>
+        <div class="brand">✳ Starship Command / Field Tour</div>
+        <h1 id="tour-title">A campaign in four moments</h1>
+      </div>
+      <div class="counter" id="counter" aria-live="polite">01 / 04</div>
+    </header>
+
+    <section class="frame" aria-label="Campaign walkthrough">
+      <div class="visual"><img id="scene-image" src="screenshots/campaign-map.png" alt="Campaign map with completed and available operations"></div>
+      <div class="caption">
+        <div>
+          <div class="eyebrow" id="scene-kicker">01 / Campaign routing</div>
+          <h2 id="scene-title">Choose your next operation</h2>
+          <p class="description" id="scene-description">Review what the crew has completed, read the route intel, and select an available destination before launching.</p>
+        </div>
+        <div class="marker" id="scene-marker">UES MERIDIAN · SECTOR MAP</div>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Tour progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"><span id="progress-fill"></span></div>
+    </section>
+
+    <nav class="controls" aria-label="Tour controls">
+      <div class="control-group">
+        <button id="previous" type="button" aria-label="Previous scene">← Previous</button>
+        <button id="play-pause" type="button" aria-pressed="true">Pause tour</button>
+        <button id="next" type="button" aria-label="Next scene">Next →</button>
+      </div>
+      <a class="back-link" href="../index.html">OPEN THE GAME ↗</a>
+    </nav>
+    <p class="note">A short visual tour assembled from in-game screenshots. The tour advances automatically; use the controls or arrow keys to explore at your own pace.</p>
+  </main>
+
+  <script>
+    const scenes = [
+      {
+        image: "screenshots/campaign-map.png",
+        alt: "Campaign map showing completed and available Starship Command operations",
+        kicker: "01 / Campaign routing",
+        title: "Choose your next operation",
+        description: "Review what the crew has completed, read the route intel, and select an available destination before launching.",
+        marker: "UES MERIDIAN · SECTOR MAP"
+      },
+      {
+        image: "screenshots/crisis-dialogue.png",
+        alt: "Mara Voss advising the commander during a micrometeorite impact",
+        kicker: "02 / Crew response",
+        title: "The crew speaks up",
+        description: "When a crisis hits, a specialist weighs in. Their expertise can reveal a different cost or a safer way through.",
+        marker: "BRIDGE ALERT · ACTION REQUIRED"
+      },
+      {
+        image: "screenshots/mission-choice.png",
+        alt: "The commander chooses whether to repair the relay, extract its data, or withdraw",
+        kicker: "03 / Consequential choice",
+        title: "Every outcome has a price",
+        description: "Restore the relay, save its navigation data, or protect the crew. The decision shapes the campaign intel carried forward.",
+        marker: "MISSION OBJECTIVE · FINAL CHOICE"
+      },
+      {
+        image: "screenshots/mission-debrief.png",
+        alt: "Mission debrief showing grade, commendations, ship condition, and crew status",
+        kicker: "04 / Debrief and continuity",
+        title: "The next sortie remembers",
+        description: "The debrief grades the run, records commendations, and carries ship condition, salvage, crew growth, and mission results into the next operation.",
+        marker: "RUN 19 · REPORT ARCHIVED"
+      }
+    ];
+
+    const image = document.querySelector("#scene-image");
+    const counter = document.querySelector("#counter");
+    const kicker = document.querySelector("#scene-kicker");
+    const title = document.querySelector("#scene-title");
+    const description = document.querySelector("#scene-description");
+    const marker = document.querySelector("#scene-marker");
+    const progress = document.querySelector(".progress");
+    const progressFill = document.querySelector("#progress-fill");
+    const playPause = document.querySelector("#play-pause");
+    let current = 0;
+    let timer;
+    let playing = true;
+
+    function showScene(index) {
+      current = (index + scenes.length) % scenes.length;
+      const scene = scenes[current];
+      image.src = scene.image;
+      image.alt = scene.alt;
+      kicker.textContent = scene.kicker;
+      title.textContent = scene.title;
+      description.textContent = scene.description;
+      marker.textContent = scene.marker;
+      counter.textContent = `${String(current + 1).padStart(2, "0")} / ${String(scenes.length).padStart(2, "0")}`;
+      progress.setAttribute("aria-valuenow", String(current + 1));
+      progressFill.style.width = `${((current + 1) / scenes.length) * 100}%`;
+    }
+
+    function setPlaying(nextPlaying) {
+      playing = nextPlaying;
+      window.clearInterval(timer);
+      playPause.textContent = playing ? "Pause tour" : "Play tour";
+      playPause.setAttribute("aria-pressed", String(playing));
+      if (playing) timer = window.setInterval(() => showScene(current + 1), 6500);
+    }
+
+    document.querySelector("#previous").addEventListener("click", () => showScene(current - 1));
+    document.querySelector("#next").addEventListener("click", () => showScene(current + 1));
+    playPause.addEventListener("click", () => setPlaying(!playing));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") showScene(current - 1);
+      if (event.key === "ArrowRight") showScene(current + 1);
+      if (event.code === "Space" && event.target.tagName !== "BUTTON" && event.target.tagName !== "A") {
+        event.preventDefault();
+        setPlaying(!playing);
+      }
+    });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPlaying(false);
+    else setPlaying(true);
+  </script>
+</body>
+</html>
