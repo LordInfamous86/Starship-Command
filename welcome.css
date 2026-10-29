@@ -1,0 +1,23 @@
+.welcome-backdrop{z-index:8;background:#04090de8}
+.welcome-card{width:min(840px,100%);max-height:min(92vh,900px);overflow:auto;padding:clamp(20px,4vw,36px);text-align:left;background:radial-gradient(ellipse at 50% 0%,#1b343d 0%,#101b22 55%);border:1px solid #35515a;box-shadow:0 30px 110px #000c}
+.welcome-card>.eyebrow{color:#8fa5aa;font:8px var(--mono);letter-spacing:1px}
+.welcome-mark{display:grid;place-items:center;width:46px;height:46px;margin:20px 0 10px;border:1px solid var(--mint);color:var(--mint);font-size:25px;box-shadow:0 0 30px #65e2ce24}
+.welcome-kicker{margin:0;color:#7d9399;font:8px var(--mono);letter-spacing:1.2px}
+.welcome-card h1{margin:7px 0 0;font:700 clamp(38px,7vw,65px)/.95 var(--display);letter-spacing:.4px;color:#edf4f0}
+.welcome-card h1 em{font-style:normal;color:var(--mint)}
+.welcome-lead{max-width:680px;margin:14px 0 23px;color:#adbdbe;font-size:clamp(12px,1.5vw,15px);line-height:1.65}
+.welcome-howto{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.welcome-howto article{min-height:92px;padding:12px 14px;background:#0b151b;border:1px solid #273c44;border-left:2px solid #3e7772}
+.welcome-howto article>span{display:block;color:var(--mint);font:7px var(--mono);letter-spacing:.8px}
+.welcome-howto article>b{display:block;margin-top:6px;color:#e3ece8;font:600 13px var(--display);letter-spacing:.25px}
+.welcome-howto article>p{margin:5px 0 0;color:#91a4a7;font-size:9px;line-height:1.55}
+.welcome-route{display:grid;gap:6px;margin-top:14px;padding:11px 14px;border:1px solid #2b4149;background:#0c171d}
+.welcome-route>span,.welcome-footer>span{color:#71878d;font:7px var(--mono);letter-spacing:.9px}
+.welcome-route>b{display:flex;flex-wrap:wrap;align-items:center;gap:5px;color:#bccbc8;font:8px var(--mono);letter-spacing:.15px}
+.welcome-route i{color:var(--mint);font-style:normal}
+.welcome-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:16px}
+.welcome-footer .primary-button{width:auto;min-width:255px}
+.welcome-footer .primary-button span{margin-left:12px}
+#welcome-enter:focus-visible{outline:2px solid #d8fff7;outline-offset:4px}
+@media(max-width:560px){.welcome-card{max-height:94vh;padding:19px 16px}.welcome-mark{width:38px;height:38px;margin:14px 0 9px}.welcome-lead{margin-bottom:16px}.welcome-howto{grid-template-columns:1fr;gap:7px}.welcome-howto article{min-height:0;padding:10px 12px}.welcome-footer{align-items:stretch;flex-direction:column}.welcome-footer .primary-button{width:100%;min-width:0}.welcome-route>b{line-height:1.7}}
+@media(prefers-reduced-motion:reduce){.welcome-card{scroll-behavior:auto}}

@@ -6,6 +6,7 @@ const outputDirectory = path.join(projectRoot, 'dist');
 const appFiles = [
   'index.html',
   'styles.css',
+  'welcome.css',
   'sim.js',
   'engine.js',
   'audio.js',

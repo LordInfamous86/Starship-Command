@@ -9,6 +9,7 @@ A browser-playable science-fiction operations game about commanding the UES Meri
 - **Crew-driven command:** four specialists have portraits, dialogue, assignments, persistent experience, and signature abilities.
 - **Campaign persistence:** debriefs, commendations, archives, refits, and the campaign finale preserve the story across sorties.
 - **Responsive interface:** animated ship telemetry, mission scenery, crisis overlays, campaign routing, and reduced-motion support.
+- **Guided first launch:** a commander orientation explains the controls and campaign route before the first mission briefing.
 
 ## Screenshots
 

@@ -1,7 +1,7 @@
 (() => {
   const Engine=window.StarshipEngine, initial=Engine.createInitialState;
   const SAVE_KEY='starship-command-silent-relay-v1';
-  const SERVER_ID_KEY='starship-command-server-campaign-v1',ARCHIVES_KEY='starship-command-campaign-archives-v1',API_BASE=location.protocol.startsWith('http')?new URL('api',location.href).pathname.replace(/\/$/,''):null;
+  const SERVER_ID_KEY='starship-command-server-campaign-v1',ARCHIVES_KEY='starship-command-campaign-archives-v1',WELCOME_SEEN_KEY='starship-command-welcome-seen-v1',API_BASE=location.protocol.startsWith('http')?new URL('api',location.href).pathname.replace(/\/$/,''):null;
   function load(){try{const saved=JSON.parse(localStorage.getItem(SAVE_KEY));if(saved&&saved.crew&&saved.systems&&Number.isFinite(saved.turn)){saved.eventQueue=saved.eventQueue||[];return saved}}catch(_){}return initial()}
   function loadArchives(){try{const archives=JSON.parse(localStorage.getItem(ARCHIVES_KEY));return Array.isArray(archives)?archives:[]}catch(_){return []}}
   let s=load(), toastTimer,crewCalloutTimer,serverOnline=false,serverRevision=0,apiBusy=false,pendingMissionLaunch=null;
@@ -228,5 +228,8 @@
   async function beginSelectedMission(){if(apiBusy)return;if(pendingMissionLaunch){const pending=pendingMissionLaunch;if(serverOnline){s=pending.base;if(!await applyServerOperation({type:'nextMission',missionId:pending.missionId})){pendingMissionLaunch=null;$('briefing').classList.remove('open');renderCampaignMap();$('campaign-map').classList.add('open');updateStartLabel();return}}else{s=Engine.createNextState(pending.base,pending.missionId);persist();render()}pendingMissionLaunch=null;updateStartLabel()}window.StarshipAudio?.start();$('briefing').classList.remove('open');if(s.pendingEvent)presentEmergency();else if(s.status!=='active')finish(s.status==='success')}
   $('reset').onclick=resetMission;$('play-again').onclick=openCampaignMap;$('campaign-back').onclick=()=>{$('campaign-map').classList.remove('open');$('modal').classList.add('open')};$('launch-operation').onclick=launchSelectedMission;$('back-to-campaign-map').onclick=returnToCampaignMapBeforeLaunch;$('campaign-finale-button').onclick=openCampaignFinale;$('close-crew-profile').onclick=closeCrewProfile;$('dismiss-crew-profile').onclick=closeCrewProfile;document.addEventListener('keydown',event=>{if(event.key==='Escape'&&$('crew-profile').classList.contains('open'))closeCrewProfile()});$('campaign-status-button').onclick=openCampaignStatus;$('campaign-timeline-button').onclick=openCampaignTimeline;$('close-campaign-timeline').onclick=closeCampaignTimeline;$('return-timeline-map').onclick=closeCampaignTimeline;$('close-campaign-status').onclick=closeCampaignStatus;$('return-status-map').onclick=closeCampaignStatus;$('return-campaign-map').onclick=returnToCampaignMap;$('campaign-archives-button').onclick=openCampaignArchives;$('close-campaign-archives').onclick=closeCampaignArchives;$('new-campaign-button').onclick=startNewCampaign;
   $('start-mission').onclick=beginSelectedMission;
-  render();persist();$('briefing').classList.add('open');initializeServerCampaign();
+  $('welcome-enter').onclick=()=>{try{localStorage.setItem(WELCOME_SEEN_KEY,'1')}catch(_){}$('welcome-screen').classList.remove('open');$('start-mission').focus()};
+  render();persist();$('briefing').classList.add('open');
+  try{if(!localStorage.getItem(WELCOME_SEEN_KEY)){$('welcome-screen').classList.add('open');$('welcome-enter').focus()}}catch{$('welcome-screen').classList.add('open')}
+  initializeServerCampaign();
 })();

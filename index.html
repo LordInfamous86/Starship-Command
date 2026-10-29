@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="welcome.css" />
 </head>
 <body>
   <div class="shell">
@@ -45,6 +46,23 @@
     </main>
   </div>
   <div class="crew-callout" id="crew-callout" role="status" aria-live="polite" hidden><div class="crew-callout-portrait portrait-mara" id="crew-callout-portrait" role="img" aria-label="Crew member"></div><div class="crew-callout-copy"><span id="crew-callout-speaker"></span><b id="crew-callout-ability"></b><p id="crew-callout-line"></p></div></div>
+  <div class="modal-backdrop welcome-backdrop" id="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-copy">
+    <section class="welcome-card panel">
+      <div class="eyebrow"><span class="eyebrow-line"></span> FLEET OPERATIONS / COMMANDER ORIENTATION</div>
+      <div class="welcome-mark" aria-hidden="true">✳</div>
+      <p class="welcome-kicker">UES MERIDIAN · PATHFINDER CLASS</p>
+      <h1 id="welcome-title">STARSHIP <em>COMMAND</em></h1>
+      <p class="welcome-lead" id="welcome-copy">Lead a four-person crew through a frontier campaign where every turn, crisis, and mission outcome shapes the next operation.</p>
+      <div class="welcome-howto" aria-label="How to play">
+        <article><span>01 / ASSIGN</span><b>Put specialists to work</b><p>Assign each crew member to a department. Assignments are free and improve relevant actions.</p></article>
+        <article><span>02 / COMMAND</span><b>Watch time and resources</b><p>Scan, repair, or stabilize to spend one turn. Each turn uses oxygen and advances the mission clock.</p></article>
+        <article><span>03 / RESPOND</span><b>Choose your risks</b><p>Crises pause the bridge for a decision. Crew expertise can reveal a better option, but every choice has a cost.</p></article>
+        <article><span>04 / CARRY FORWARD</span><b>Shape the campaign</b><p>Mission outcomes, salvage, and crew growth carry into later operations and unlock new routes.</p></article>
+      </div>
+      <div class="welcome-route"><span>CAMPAIGN ROUTE</span><b>THE SILENT RELAY <i>→</i> THE GLASS TIDE <i>→</i> THE GHOST SIGNAL <i>→</i> THE LAST COORDINATES</b></div>
+      <div class="welcome-footer"><span>CAMPAIGN SAVES IN THIS BROWSER</span><button class="primary-button" id="welcome-enter" type="button">CONTINUE TO MISSION BRIEFING <span>→</span></button></div>
+    </section>
+  </div>
   <div class="toast" id="toast" role="status"></div>
   <div class="modal-backdrop emergency-backdrop" id="emergency" role="dialog" aria-modal="true" aria-labelledby="emergency-title"><div class="modal emergency-modal panel"><div class="eyebrow"><span class="eyebrow-line"></span> BRIDGE ALERT / ACTION REQUIRED</div><div class="emergency-mark">!</div><h2 id="emergency-title">SYSTEM EMERGENCY</h2><p class="emergency-copy" id="emergency-copy"></p><div class="crew-dialogue" id="crew-dialogue" aria-live="polite"></div><div class="emergency-choices" id="emergency-choices"></div><div class="emergency-foot" id="emergency-foot">COMMAND DECISION WILL BE RECORDED IN THE LOG</div></div></div>
   <div class="modal-backdrop briefing-backdrop" id="briefing" role="dialog" aria-modal="true" aria-labelledby="briefing-title"><div class="modal briefing-modal panel"><div class="eyebrow"><span class="eyebrow-line"></span> FLEET OPERATIONS / MISSION BRIEF</div><div class="briefing-top"><div><h2 id="briefing-title">THE SILENT <em>RELAY</em></h2><p class="briefing-lead" id="briefing-lead">A distress beacon has gone quiet beyond the Kestrel Belt. Command the UES Meridian, restore the relay signal, and get your crew out alive.</p></div><div class="briefing-stamp" id="briefing-stamp">OP-07<br><span>PRIORITY</span></div></div><section class="briefing-crew-reaction" id="briefing-crew-reaction" hidden><span class="crew-avatar dialogue-portrait" id="briefing-reaction-portrait"></span><div><span class="briefing-reaction-speaker" id="briefing-reaction-speaker"></span><p id="briefing-reaction-line"></p></div></section><div class="briefing-grid"><section><h3>YOUR OBJECTIVE</h3><p id="briefing-objective">Build relay link progress to <b>100%</b>, then choose how to finish: repair the relay, extract its data, or withdraw with the crew.</p></section><section><h3>COMMANDS</h3><p id="briefing-commands"><b>Scan</b> advances the relay link. <b>Repair</b> restores hull. <b>Stabilize</b> restores reactor power. Each command costs one turn and consumes 5 oxygen; Scan, Repair, and Stabilize also cost power. Crew assignments are free. Advance Turn waits without issuing another command.</p></section><section><h3>CREW & CONSEQUENCES</h3><p id="briefing-events">Assign specialists to improve their departments. <b>Advance Turn</b> consumes oxygen and can trigger crises. Each crisis pauses the bridge for a decision.</p></section><section><h3>MISSION FAILURE</h3><p id="briefing-failure">The run ends if time expires, hull integrity reaches zero, or crew condition reaches zero. The campaign autosaves to the local server when available, with a browser backup.</p></section></div><div class="briefing-footer"><span><i></i> COMMANDER, THE BRIDGE IS YOURS</span><div class="briefing-footer-actions"><button class="secondary-button" id="back-to-campaign-map" type="button" hidden>BACK TO CAMPAIGN MAP</button><button class="primary-button" id="start-mission" type="button">BEGIN MISSION <span>↗</span></button></div></div></div></div>
